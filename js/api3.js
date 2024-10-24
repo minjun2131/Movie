@@ -23,6 +23,7 @@ async function loadData() {
         const data = await response.json();
         const dataArray = data.results;
         renderData(dataArray);
+        bookMarkRender();
     } catch (error) {
         console.error(error);
     }
@@ -31,6 +32,7 @@ async function loadData() {
 // 화면에 영화 정보 렌더링 함수
 function renderData(movieArray) {
     movieList.innerHTML = ''; 
+    
     movieArray.forEach((movie) => {
         let posterURL = movie.poster_path;
         let title = movie.title;
@@ -46,13 +48,12 @@ function renderData(movieArray) {
         `;
         movieList.innerHTML += movie_html;
     });
-
+    
     // 카드 클릭 시 모달 열기
     movieList.addEventListener("click", (e) => {
         const clickedCard = e.target.closest(".movieCard");
         if (clickedCard) {
             let thisMovieId = Number(clickedCard.getAttribute('data-id'));
-            modalInfo.innerHTML = ""; 
             showModal(movieArray, thisMovieId);
         }
     });
@@ -60,7 +61,7 @@ function renderData(movieArray) {
 
 // 모달 보여주는 함수
 function showModal(movieArray, thisMovieId) {
-
+    
     movieArray.forEach((movie) => {
         if (movie.id === thisMovieId) {
             let posterURL = movie.poster_path;
@@ -69,9 +70,7 @@ function showModal(movieArray, thisMovieId) {
             let overView = movie.overview;
             let releaseDate = movie.release_date;
             let movieId = movie.id;
-
-            const div = document.createElement("div");
-            div.innerHTML = `
+            let div = `
                 <img src="https://image.tmdb.org/t/p/w200${posterURL}" alt="${title}" />
                 <h3>${title}</h3>
                 <p>${overView}</p>
@@ -79,12 +78,12 @@ function showModal(movieArray, thisMovieId) {
                 <p>${voteAverage}</p>
             `;
             bookMarkBtn.dataset.id = movieId;
-            modalInfo.appendChild(div);
+            modalInfo.innerHTML = div;
             modal.style.display = 'block';
         }
     });
+    // 모달 1번 초기화
     
-
     modal.addEventListener('click', function () {
         modalInfo.innerHTML = ""; 
         modal.style.display = "none"; 
@@ -99,7 +98,7 @@ let debounceTimer = null;
 async function updateValue(e) {
     // 타이머 중복 방지
     clearTimeout(debounceTimer); 
-
+    modalInfo.innerHTML = ""; 
     // 새로운 타이머 200 초
     debounceTimer = setTimeout(async () => { 
         searchInput.value = e.target.value;
@@ -119,9 +118,10 @@ async function updateValue(e) {
         }
     }, 200);
 }
-bookMarkRender();
+
 
 bookMarkBtn.addEventListener('click',function (event) {
+    
     let getDataValue = bookMarkBtn.getAttribute('data-id');
     console.log(event.target);
     // 밖에서 함수가 선언된 순간에 값이 바뀌지 않는다.
@@ -170,12 +170,12 @@ function bookMarkRender(){
                         <div class='moviePoster'><img src="https://image.tmdb.org/t/p/w200${posterURL}" alt="${title}"/></div>
                         <h3>${title}</h3>
                         <p>${voteAverage}</p>`;
-                movieCard.addEventListener('click',function(){
-                    bookMarkModal(bookId);
-                });
                 for (let id = 0; id < bookMarkKeys.length; id++) {
                     if (bookId.id === Number(bookMarkKeys[id])) {
                         movieList.appendChild(movieCard);
+                        movieCard.addEventListener('click',function(){
+                            bookMarkModal(bookId);
+                        });
                     } 
                 }
                 console.log(bookId);
@@ -187,7 +187,8 @@ function bookMarkRender(){
 }
 
 function bookMarkModal(movie){
-    let modalInfo = document.querySelector('.movieInfoCard');
+    console.log(modalInfo);
+    modalInfo.innerHTML  = ' '
     let thisMovieId = modalInfo.getAttribute('data-id');
     thisMovieId = Number(thisMovieId);
     let posterURL = movie.poster_path;
@@ -196,9 +197,7 @@ function bookMarkModal(movie){
     let overView = movie.overview;
     let releaseDate = movie.release_date;
     let posterId = movie.id;
-    
-    const div = document.createElement("div");
-    div.innerHTML = `
+    modalInfo.innerHTML = `
         <img src="https://image.tmdb.org/t/p/w200${posterURL}" alt="${title}"/>
         <h3>${title}</h3>
         <p>${overView}</p>
@@ -206,10 +205,7 @@ function bookMarkModal(movie){
         <p>${voteAverage}</p>
         
     `;
-    console.log(modalInfo.innerHTML);
-    console.log(div);
-    modalInfo.appendChild(div);
-    console.log(modalInfo.innerHTML);
+    
     modal.style.display = 'block';
     bookMarkBtn.dataset.id = posterId;
     bookMarkBtn.addEventListener("click",function(){
