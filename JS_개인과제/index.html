@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <h1>인기 영화 목록</h1>
+            <div><input id='search' type='search' value="" placeholder="검색할 영화를 입력해주세요."></div>
+            <div><button class="bookMark">내가 북마크한 영화 보기</button></div>
+        </header>
+        <main></main>
+        <footer></footer>
+    </div>
+    <div class="modalWrap hide">
+        <div class="modal">
+        </div>
+        <div class="movieInfoWrap">
+            <div class="movieInfoCard"></div>
+            <button class="bookMarkAddDel">북마크 추가</button>
+        </div>
+    </div>
+</body>
+
+<script src="./api3.js"></script>
+</html>
