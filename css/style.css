@@ -1,0 +1,148 @@
+/*################ 초기값 설정 #############*/	
+*{margin:0;padding:0;}
+body{margin:0; padding:0; background-color:#eee;
+background-image:url('../img/bg.jpg')
+}
+li{list-style-type:none;}
+a:link,a:visited{text-decoration:none;}
+a:hover,a:focus{text-decoration:none;}
+img{border:none;}
+
+/* header */
+header{
+    padding:100px 0;
+    text-align:center;
+}
+
+h1{
+    padding-bottom:100px;
+}
+h1 img{width:20%;}
+
+#search{
+    width:50%;
+    border-radius:50px;
+    display:inline-block;
+    border:2px solid red;
+    padding:20px;
+}   
+
+
+
+/* main grid style */
+main {
+    display: grid;
+    grid-template-columns: repeat(6, 200px);
+    justify-items: center;
+    justify-content: center;
+    text-align:center;
+    gap:20px;
+}
+
+.nav{
+    display:flex;
+    justify-content: center;
+}
+
+main .movieCard {
+    overflow:hidden;
+    background-color:#e7e7e7;
+    border-radius:50px;
+    box-shadow: 10px 5px 5px #ccc;
+    gap:50px;
+}
+
+.bookMark{
+    border:none;
+    background-color: transparent;
+}
+
+button img{
+    margin-left:10px;
+    width:50px;
+}
+
+.moviePoster {
+    overflow:hidden;
+    height:250px;
+}
+
+main h3{
+    padding-top:10px;
+}
+
+main p{
+    padding-bottom:10px;
+}
+
+
+
+/* modal style */
+.modalWrap{
+    width:100%;
+    height:100%;
+    
+}
+
+.hide{
+    display:none;
+}
+
+.modal {
+    top:0;
+    width:100%;
+    height:100%;
+    position:fixed;
+    background-color:rgb(0,0,0,0.5);
+    z-index:1;
+}
+.movieInfoWrap{
+    border-radius:50px;
+    padding:3%;
+    background-color:#fff;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:9999;
+    background-image:url('../img/bg.jpg')
+    
+}
+.movieInfoWrap .img{
+    text-align:center;
+    overflow:hidden;
+}
+
+.movieInfoWrap h3{
+    padding:30px 0;
+}
+.movieInfoWrap .img img{
+    width:50%;
+    border-radius:50px;
+}
+
+.movieInfoWrap .text{
+    text-align:left;
+    height:100px;
+    overflow:auto;
+    overflow-x:hidden;
+}
+
+.movieInfoWrap p {
+    padding-top:10px;
+}
+
+.movieInfoWrap button {
+    background-color:#777;
+    color:#fff;
+    margin-top:30px;
+    padding:10px 0;
+    width:100%;
+    border:none;
+    border-radius:50px;
+}
+
+.movieInfoWrap button:hover{
+    background-color:#aaa;
+    color:#000;
+}
